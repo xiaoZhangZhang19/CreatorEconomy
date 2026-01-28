@@ -1,0 +1,23 @@
+[package]
+name = "creator-economy"
+version = "0.1.0"
+description = "Creator Economy - A Solana program for content creators and supporters"
+edition = "2021"
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(feature, values("custom-heap", "custom-panic", "anchor-debug"))'] }
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "creator_economy"
+
+[features]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+cpi = ["no-entrypoint"]
+default = []
+idl-build = ["anchor-lang/idl-build"]
+
+[dependencies]
+anchor-lang = "0.32.1"
