@@ -238,30 +238,3 @@ await program.methods
   .remainingAccounts([...earlySupporterAccounts])
   .rpc();
 ```
-
-## 🤝 贡献
-
-欢迎提交 Issue 和 Pull Request！
-
-## 📄 License
-
-MIT
-
-## 🎉 黑客松
-
-这个项目是为 Solana 黑客松开发的，专注于消费与娱乐应用赛道。
-
-## 👥 团队
-
-- 开发者：[Your Name]
-- 联系方式：[Your Email]
-
-## 🔗 相关链接
-
-- [Solana Docs](https://docs.solana.com/)
-- [Anchor Book](https://book.anchor-lang.com/)
-- [Solana Cookbook](https://solanacookbook.com/)
-
----
-
-**注意**: 这是一个 Devnet 项目，不要在 Mainnet 上使用未经审计的代码！
