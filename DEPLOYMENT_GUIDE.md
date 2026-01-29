@@ -159,9 +159,9 @@ cd app
 vercel
 
 # 4. 配置环境变量（在 Vercel Dashboard）
-# NEXT_PUBLIC_PROGRAM_ID=你的Program ID
+# NEXT_PUBLIC_PROGRAM_ID=7E14Uz3c1CUoXaxkiGyP2WeqXDzxrMRgFu9pAVrrxLkx
 # NEXT_PUBLIC_RPC_ENDPOINT=https://api.devnet.solana.com
-# NEXT_PUBLIC_PLATFORM_TREASURY=你的钱包地址
+# NEXT_PUBLIC_PLATFORM_TREASURY=5nTLZ2q7XkACv7GZ7qY2q66Z5V7F1j69jQbNaYQtdKD6
 
 # 5. 生产部署
 vercel --prod
