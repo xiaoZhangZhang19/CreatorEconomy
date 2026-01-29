@@ -1,6 +1,5 @@
 {
   "/creator/publish/page": "app/creator/publish/page.js",
   "/creator/page": "app/creator/page.js",
-  "/content/[id]/page": "app/content/[id]/page.js",
   "/page": "app/page.js"
 }

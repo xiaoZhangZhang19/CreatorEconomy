@@ -499,66 +499,75 @@ export default function RootLayout({
         <ErrorSuppressor />
         <ErrorBoundary>
           <WalletProvider>
-            <div className="min-h-screen bg-gradient-to-br from-gray-50 via-purple-50 to-indigo-50">
+            <div className="min-h-screen relative">
               <Header />
 
               <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
                 {children}
               </main>
 
-              <footer className="bg-white border-t-2 border-gray-200 mt-16">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+              <footer className="glass-card border-t border-cyan-500/30 mt-16 relative overflow-hidden">
+                {/* 霓虹装饰线 */}
+                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent animate-glow"></div>
+                
+                {/* 扫描线效果 */}
+                <div className="scan-lines absolute inset-0 pointer-events-none"></div>
+                
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                     {/* About */}
                     <div>
                       <div className="flex items-center space-x-2 mb-4">
-                        <span className="text-3xl">🎨</span>
-                        <h3 className="text-xl font-bold text-gray-900">Creator Economy</h3>
+                        <span className="text-4xl animate-float">🎨</span>
+                        <h3 className="text-2xl font-bold gradient-text">Creator Economy</h3>
                       </div>
-                      <p className="text-gray-600 text-sm leading-relaxed">
+                      <p className="text-cyan-200 text-sm leading-relaxed">
                         基于 Solana 区块链的创作者经济平台，通过早期支持者分成机制，为创作者和支持者创造共赢。
                       </p>
                     </div>
 
                     {/* Features */}
                     <div>
-                      <h4 className="text-lg font-bold text-gray-900 mb-4">核心特性</h4>
-                      <ul className="space-y-2 text-sm text-gray-600">
-                        <li className="flex items-center">
-                          <span className="mr-2">✨</span>
-                          早期支持者分成机制
+                      <h4 className="text-xl font-bold text-cyan-300 mb-4 neon-glow-cyan">核心特性</h4>
+                      <ul className="space-y-3 text-sm text-cyan-200">
+                        <li className="flex items-center group hover:text-cyan-100 transition-colors">
+                          <span className="mr-2 text-lg">✨</span>
+                          <span>早期支持者分成机制</span>
                         </li>
-                        <li className="flex items-center">
-                          <span className="mr-2">⚡</span>
-                          低费用微支付
+                        <li className="flex items-center group hover:text-cyan-100 transition-colors">
+                          <span className="mr-2 text-lg">⚡</span>
+                          <span>低费用微支付</span>
                         </li>
-                        <li className="flex items-center">
-                          <span className="mr-2">🔒</span>
-                          链上存储
+                        <li className="flex items-center group hover:text-cyan-100 transition-colors">
+                          <span className="mr-2 text-lg">🔒</span>
+                          <span>链上存储</span>
                         </li>
-                        <li className="flex items-center">
-                          <span className="mr-2">💎</span>
-                          透明公平
+                        <li className="flex items-center group hover:text-cyan-100 transition-colors">
+                          <span className="mr-2 text-lg">💎</span>
+                          <span>透明公平</span>
                         </li>
                       </ul>
                     </div>
 
                     {/* Links */}
                     <div>
-                      <h4 className="text-lg font-bold text-gray-900 mb-4">快速链接</h4>
-                      <ul className="space-y-2 text-sm">
+                      <h4 className="text-xl font-bold text-purple-300 mb-4">快速链接</h4>
+                      <ul className="space-y-3 text-sm">
                         <li>
-                          <a href="/" className="text-purple-600 hover:text-purple-800 transition-colors">
+                          <a href="/" className="text-cyan-300 hover:text-cyan-100 hover:neon-glow-cyan transition-all inline-flex items-center">
+                            <span className="mr-2">🏠</span>
                             内容广场
                           </a>
                         </li>
                         <li>
-                          <a href="/creator/publish" className="text-purple-600 hover:text-purple-800 transition-colors">
+                          <a href="/creator/publish" className="text-cyan-300 hover:text-cyan-100 hover:neon-glow-cyan transition-all inline-flex items-center">
+                            <span className="mr-2">✨</span>
                             发布内容
                           </a>
                         </li>
                         <li>
-                          <a href="/creator" className="text-purple-600 hover:text-purple-800 transition-colors">
+                          <a href="/creator" className="text-cyan-300 hover:text-cyan-100 hover:neon-glow-cyan transition-all inline-flex items-center">
+                            <span className="mr-2">👤</span>
                             创作者中心
                           </a>
                         </li>
@@ -566,21 +575,25 @@ export default function RootLayout({
                     </div>
                   </div>
 
-                  <div className="border-t border-gray-200 pt-8">
+                  <div className="border-t border-cyan-500/30 pt-8">
                     <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                      <p className="text-gray-500 text-sm">
+                      <p className="text-cyan-400/70 text-sm">
                         © 2026 Creator Economy - 基于 Solana 的创作者经济平台
                       </p>
-                      <div className="flex items-center space-x-6 text-sm text-gray-500">
-                        <a href="https://solana.com" target="_blank" rel="noopener noreferrer" className="hover:text-purple-600 transition-colors">
-                          Powered by Solana
+                      <div className="flex items-center space-x-6 text-sm text-cyan-400/70">
+                        <a href="https://solana.com" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-300 hover:neon-glow-cyan transition-all inline-flex items-center">
+                          ⚡ Powered by Solana
                         </a>
-                        <span>•</span>
-                        <span>Devnet</span>
+                        <span className="text-cyan-500">•</span>
+                        <span className="text-purple-400">Devnet</span>
                       </div>
                     </div>
                   </div>
                 </div>
+                
+                {/* 背景光球 */}
+                <div className="absolute bottom-0 left-1/4 w-64 h-64 bg-cyan-500 rounded-full mix-blend-screen filter blur-3xl opacity-10 animate-blob pointer-events-none"></div>
+                <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-purple-500 rounded-full mix-blend-screen filter blur-3xl opacity-10 animate-blob animation-delay-2000 pointer-events-none"></div>
               </footer>
             </div>
           </WalletProvider>

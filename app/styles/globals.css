@@ -3,29 +3,97 @@
 @tailwind utilities;
 
 :root {
-  --background: #fafafa;
-  --foreground: #171717;
+  --background: #0a0a1f;
+  --foreground: #ffffff;
   --purple-gradient: linear-gradient(135deg, #9333ea 0%, #6366f1 100%);
+  --neon-cyan: #00fff9;
+  --neon-purple: #bc13fe;
+  --neon-pink: #ff006e;
+  --space-blue: #1a1a3e;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #fafafa;
-    --foreground: #171717;
+    --background: #0a0a1f;
+    --foreground: #ffffff;
   }
 }
 
 body {
   color: var(--foreground);
-  background: var(--background);
+  background: linear-gradient(135deg, #0a0a1f 0%, #1a1a3e 50%, #0f0f2e 100%);
+  background-attachment: fixed;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* 星空背景 */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(2px 2px at 20% 30%, white, transparent),
+    radial-gradient(2px 2px at 60% 70%, white, transparent),
+    radial-gradient(1px 1px at 50% 50%, white, transparent),
+    radial-gradient(1px 1px at 80% 10%, white, transparent),
+    radial-gradient(2px 2px at 90% 60%, white, transparent),
+    radial-gradient(1px 1px at 33% 80%, white, transparent),
+    radial-gradient(1px 1px at 75% 90%, white, transparent);
+  background-size: 200% 200%;
+  background-position: 0% 0%;
+  animation: stars 60s linear infinite;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes stars {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  
+  /* 霓虹发光效果 */
+  .neon-glow-cyan {
+    text-shadow: 0 0 10px #00fff9, 0 0 20px #00fff9, 0 0 30px #00fff9;
+  }
+  
+  .neon-glow-purple {
+    text-shadow: 0 0 10px #bc13fe, 0 0 20px #bc13fe, 0 0 30px #bc13fe;
+  }
+  
+  .neon-glow-pink {
+    text-shadow: 0 0 10px #ff006e, 0 0 20px #ff006e, 0 0 30px #ff006e;
+  }
+  
+  /* 霓虹边框 */
+  .neon-border {
+    box-shadow: 
+      0 0 5px rgba(0, 255, 249, 0.5),
+      0 0 10px rgba(0, 255, 249, 0.3),
+      0 0 20px rgba(0, 255, 249, 0.2),
+      inset 0 0 10px rgba(0, 255, 249, 0.1);
+    border: 1px solid rgba(0, 255, 249, 0.5);
+  }
+  
+  .neon-border-purple {
+    box-shadow: 
+      0 0 5px rgba(188, 19, 254, 0.5),
+      0 0 10px rgba(188, 19, 254, 0.3),
+      0 0 20px rgba(188, 19, 254, 0.2),
+      inset 0 0 10px rgba(188, 19, 254, 0.1);
+    border: 1px solid rgba(188, 19, 254, 0.5);
   }
   
   /* Custom animations */
@@ -41,12 +109,53 @@ body {
     }
   }
   
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+  
+  @keyframes glow-pulse {
+    0%, 100% {
+      opacity: 1;
+      filter: brightness(1);
+    }
+    50% {
+      opacity: 0.8;
+      filter: brightness(1.2);
+    }
+  }
+  
+  @keyframes scan-line {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(100%);
+    }
+  }
+  
   .animate-blob {
     animation: blob 7s infinite;
   }
   
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .animate-glow {
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+  
   .animation-delay-2000 {
     animation-delay: 2s;
+  }
+  
+  .animation-delay-4000 {
+    animation-delay: 4s;
   }
   
   /* Grid background pattern */
@@ -55,20 +164,58 @@ body {
                       linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
   }
   
+  .bg-grid-cyan {
+    background-image: linear-gradient(to right, rgba(0, 255, 249, 0.1) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(0, 255, 249, 0.1) 1px, transparent 1px);
+  }
+  
   /* Gradient text */
   .gradient-text {
+    background: linear-gradient(135deg, #00fff9 0%, #bc13fe 50%, #ff006e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+  
+  .gradient-text-alt {
     background: linear-gradient(135deg, #9333ea 0%, #6366f1 50%, #8b5cf6 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
   
-  /* Glass morphism */
+  /* Glass morphism - Space Tech版本 */
   .glass {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(26, 26, 62, 0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 255, 249, 0.2);
+  }
+  
+  .glass-card {
+    background: linear-gradient(135deg, rgba(26, 26, 62, 0.8) 0%, rgba(15, 15, 46, 0.8) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 255, 249, 0.3);
+    box-shadow: 
+      0 0 20px rgba(0, 255, 249, 0.1),
+      inset 0 0 20px rgba(0, 255, 249, 0.05);
+  }
+  
+  /* 扫描线效果 */
+  .scan-lines::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 50%,
+      rgba(0, 255, 249, 0.03) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    animation: scan-line 8s linear infinite;
   }
   
   /* Smooth scroll */
@@ -76,46 +223,101 @@ body {
     scroll-behavior: smooth;
   }
   
-  /* Custom scrollbar */
+  /* Custom scrollbar - Space Tech */
   ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
   }
   
   ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: rgba(26, 26, 62, 0.5);
     border-radius: 10px;
+    border: 1px solid rgba(0, 255, 249, 0.1);
   }
   
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, #9333ea 0%, #6366f1 100%);
+    background: linear-gradient(135deg, #00fff9 0%, #bc13fe 100%);
     border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 255, 249, 0.5);
   }
   
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, #7e22ce 0%, #4f46e5 100%);
+    background: linear-gradient(135deg, #00fff9 0%, #ff006e 100%);
+    box-shadow: 0 0 15px rgba(0, 255, 249, 0.8);
+  }
+  
+  /* 全息效果 */
+  .holographic {
+    position: relative;
+    background: linear-gradient(135deg, 
+      rgba(0, 255, 249, 0.1) 0%,
+      rgba(188, 19, 254, 0.1) 50%,
+      rgba(255, 0, 110, 0.1) 100%
+    );
+    border: 1px solid rgba(0, 255, 249, 0.3);
+  }
+  
+  .holographic::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      45deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 70%
+    );
+    background-size: 200% 200%;
+    animation: holographic-shine 3s ease-in-out infinite;
+  }
+  
+  @keyframes holographic-shine {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
   }
 }
 
-/* 钱包适配器样式优化 */
+/* 钱包适配器样式 - Space Tech */
 .wallet-adapter-button {
-  @apply bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl hover:scale-105;
+  background: linear-gradient(135deg, rgba(0, 255, 249, 0.2), rgba(188, 19, 254, 0.2)) !important;
+  border: 1px solid rgba(0, 255, 249, 0.5) !important;
+  box-shadow: 0 0 20px rgba(0, 255, 249, 0.3), inset 0 0 20px rgba(0, 255, 249, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  color: #00fff9 !important;
+  font-weight: bold !important;
+  padding: 0.75rem 1.5rem !important;
+  border-radius: 0.75rem !important;
+  transition: all 0.3s ease !important;
+}
+
+.wallet-adapter-button:hover {
+  box-shadow: 0 0 30px rgba(0, 255, 249, 0.5), inset 0 0 30px rgba(0, 255, 249, 0.2) !important;
+  transform: scale(1.05) !important;
 }
 
 .wallet-adapter-button-trigger {
-  @apply bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700;
+  background: linear-gradient(135deg, rgba(0, 255, 249, 0.2), rgba(188, 19, 254, 0.2)) !important;
+  border: 1px solid rgba(0, 255, 249, 0.5) !important;
 }
 
 .wallet-adapter-modal-wrapper {
-  @apply backdrop-blur-sm;
+  backdrop-filter: blur(20px) !important;
+  background: rgba(10, 10, 31, 0.8) !important;
 }
 
 .wallet-adapter-modal {
-  @apply rounded-3xl shadow-2xl border-2 border-purple-200;
+  background: linear-gradient(135deg, rgba(26, 26, 62, 0.95) 0%, rgba(15, 15, 46, 0.95) 100%) !important;
+  border-radius: 1.5rem !important;
+  border: 2px solid rgba(0, 255, 249, 0.3) !important;
+  box-shadow: 0 0 60px rgba(0, 255, 249, 0.3), inset 0 0 40px rgba(0, 255, 249, 0.1) !important;
 }
 
 .wallet-adapter-modal-title {
-  @apply text-2xl font-bold;
+  font-size: 1.5rem !important;
+  font-weight: bold !important;
+  color: #00fff9 !important;
+  text-shadow: 0 0 10px #00fff9 !important;
 }
 
 /* Loading spinner */
@@ -151,14 +353,17 @@ body {
   animation: fadeIn 0.6s ease-out;
 }
 
-/* Card hover effects */
+/* Card hover effects - Space Tech */
 .card-hover-effect {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card-hover-effect:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(147, 51, 234, 0.2);
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 
+    0 20px 60px rgba(0, 255, 249, 0.3),
+    0 0 40px rgba(188, 19, 254, 0.2),
+    inset 0 0 20px rgba(0, 255, 249, 0.1);
 }
 
 /* Button press effect */
@@ -166,10 +371,10 @@ body {
   transform: scale(0.95);
 }
 
-/* Gradient borders */
+/* Gradient borders - Neon */
 .gradient-border {
   position: relative;
-  background: white;
+  background: rgba(26, 26, 62, 0.6);
   border-radius: 1rem;
 }
 
@@ -179,8 +384,15 @@ body {
   inset: 0;
   border-radius: 1rem;
   padding: 2px;
-  background: linear-gradient(135deg, #9333ea, #6366f1);
+  background: linear-gradient(135deg, #00fff9, #bc13fe, #ff006e);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
+  animation: border-flow 3s linear infinite;
+}
+
+@keyframes border-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
