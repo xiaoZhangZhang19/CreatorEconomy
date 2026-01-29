@@ -87,6 +87,9 @@ export default function ContentDetailPage({
     );
   }
 
+  // TypeScript 类型保护：此时 content 必定存在
+  if (!content) return null;
+
   const isEarlySupporter =
     publicKey &&
     content.earlySupporters.includes(publicKey.toBase58());
