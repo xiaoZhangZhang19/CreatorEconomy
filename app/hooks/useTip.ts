@@ -40,7 +40,7 @@ export function useTip() {
       const [platformPDA] = derivePlatformPDA();
 
       // 获取内容账户以获取早期支持者列表
-      const contentAccount = await (program.account as any).Content.fetch(contentPDA);
+      const contentAccount = await (program.account as any).content.fetch(contentPDA);
       const earlySupporters = contentAccount.earlySupporters || [];
 
       // 构建 remaining_accounts（早期支持者的钱包账户）

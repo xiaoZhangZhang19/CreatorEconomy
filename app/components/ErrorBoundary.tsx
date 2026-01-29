@@ -24,6 +24,7 @@ export class ErrorBoundary extends Component<Props, State> {
     const ignorablePatterns = [
       "tronlinkParams",
       "tronLink",
+      "tronweb",
       "tron",
       "MetaMask",
       "_bn",
@@ -35,6 +36,8 @@ export class ErrorBoundary extends Component<Props, State> {
       "User rejected",
       "User cancelled",
       "wallet-standard",
+      "chrome-extension",
+      "ibnejdfjmmkpcnlpebklmnkoeoihofec",
     ];
 
     const errorMessage = error.message?.toLowerCase() || "";
@@ -57,6 +60,7 @@ export class ErrorBoundary extends Component<Props, State> {
     const ignorablePatterns = [
       "tronlinkParams",
       "tronLink",
+      "tronweb",
       "tron",
       "MetaMask",
       "_bn",
@@ -68,6 +72,8 @@ export class ErrorBoundary extends Component<Props, State> {
       "User rejected",
       "User cancelled",
       "wallet-standard",
+      "chrome-extension",
+      "ibnejdfjmmkpcnlpebklmnkoeoihofec",
     ];
 
     const errorMessage = error.message?.toLowerCase() || "";

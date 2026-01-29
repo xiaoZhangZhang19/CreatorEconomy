@@ -44,6 +44,7 @@ export default function RootLayout({
                   'User cancelled',
                   'Hydration',
                   'chrome-extension',
+                  'ibnejdfjmmkpcnlpebklmnkoeoihofec',
                 ];
                 
                 // 检查是否应该忽略错误
@@ -55,10 +56,32 @@ export default function RootLayout({
                   );
                 }
 
+                // 最早期的错误拦截 - 在所有代码之前
+                const originalAddEventListener = EventTarget.prototype.addEventListener;
+                EventTarget.prototype.addEventListener = function(type, listener, options) {
+                  if (type === 'error' || type === 'unhandledrejection') {
+                    const wrappedListener = function(event) {
+                      const message = event.message || event.reason?.message || event.reason?.toString() || '';
+                      if (shouldIgnoreError(message)) {
+                        event.stopImmediatePropagation();
+                        event.preventDefault();
+                        return;
+                      }
+                      if (typeof listener === 'function') {
+                        return listener.call(this, event);
+                      } else if (listener && listener.handleEvent) {
+                        return listener.handleEvent(event);
+                      }
+                    };
+                    return originalAddEventListener.call(this, type, wrappedListener, options);
+                  }
+                  return originalAddEventListener.call(this, type, listener, options);
+                };
+
                 // 全局错误处理器
                 const originalErrorHandler = window.onerror;
                 window.onerror = function(message, source, lineno, colno, error) {
-                  if (shouldIgnoreError(message)) {
+                  if (shouldIgnoreError(message) || (source && source.includes('chrome-extension'))) {
                     console.debug('已忽略的扩展错误:', message);
                     return true; // 阻止错误传播
                   }
@@ -74,8 +97,9 @@ export default function RootLayout({
                   if (shouldIgnoreError(message)) {
                     console.debug('已忽略的 Promise 错误:', message);
                     event.preventDefault();
+                    event.stopImmediatePropagation();
                   }
-                });
+                }, true); // 使用捕获阶段
 
                 // 增强的 Proxy 保护 - 防止 TronLink 等扩展导致的错误
                 try {
@@ -197,6 +221,17 @@ export default function RootLayout({
                   return originalConsoleError.apply(console, args);
                 };
 
+                // 同时拦截 console.warn
+                const originalConsoleWarn = console.warn;
+                console.warn = function(...args) {
+                  const message = args.join(' ');
+                  if (shouldIgnoreError(message)) {
+                    console.debug('已拦截控制台警告:', message);
+                    return;
+                  }
+                  return originalConsoleWarn.apply(console, args);
+                };
+
                 console.log('✅ 浏览器扩展冲突防护已启用');
               })();
               
@@ -214,6 +249,25 @@ export default function RootLayout({
                   }
                 }, 100);
               });
+
+              // 拦截 Next.js 开发模式的错误覆盖层
+              if (typeof window !== 'undefined') {
+                window.addEventListener('error', function(event) {
+                  const message = event.message || event.error?.message || '';
+                  const ignoredPatterns = ['tronlinkParams', 'tronLink', 'tronweb', 'tron', 'trap returned falsish', 'chrome-extension', 'ibnejdfjmmkpcnlpebklmnkoeoihofec'];
+                  
+                  const shouldIgnore = ignoredPatterns.some(pattern => 
+                    message.toLowerCase().includes(pattern.toLowerCase())
+                  );
+
+                  if (shouldIgnore) {
+                    event.stopImmediatePropagation();
+                    event.preventDefault();
+                    console.debug('已阻止错误覆盖层显示:', message);
+                    return false;
+                  }
+                }, true);
+              }
             `,
           }}
         />

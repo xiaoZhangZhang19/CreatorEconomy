@@ -27,7 +27,7 @@ export function usePublish() {
 
       // 尝试获取创作者资料
       try {
-        await (program.account as any).CreatorProfile.fetch(creatorProfilePDA);
+        await (program.account as any).creatorProfile.fetch(creatorProfilePDA);
         console.log("创作者资料已存在");
         return;
       } catch {
@@ -66,7 +66,7 @@ export function usePublish() {
 
       // 派生 PDAs
       const [platformPDA] = derivePlatformPDA();
-      const platformAccount = await (program.account as any).Platform.fetch(platformPDA);
+      const platformAccount = await (program.account as any).platform.fetch(platformPDA);
       const contentId = platformAccount.totalContentCount.toNumber();
 
       const [contentPDA] = deriveContentPDA(contentId);

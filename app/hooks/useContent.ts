@@ -34,7 +34,7 @@ export function useContent(contentId: number) {
       try {
         setLoading(true);
         const [contentPDA] = deriveContentPDA(contentId);
-        const contentAccount = await (program.account as any).Content.fetch(contentPDA);
+        const contentAccount = await (program.account as any).content.fetch(contentPDA);
 
         // 安全地转换 BN 类型
         const safeToNumber = (bn: any) => {
@@ -98,7 +98,7 @@ export function useAllContents() {
     const fetchAllContents = async () => {
       try {
         setLoading(true);
-        const contentAccounts = await (program.account as any).Content.all();
+        const contentAccounts = await (program.account as any).content.all();
 
         const contentsData = contentAccounts
           .map((account: any) => ({

@@ -44,7 +44,7 @@ export default function CreatorCenterPage() {
         // 获取创作者资料
         const [profilePDA] = deriveCreatorProfilePDA(publicKey);
         try {
-          const profileAccount = await (program.account as any).CreatorProfile.fetch(profilePDA);
+          const profileAccount = await (program.account as any).creatorProfile.fetch(profilePDA);
           setProfile({
             creator: profileAccount.creator.toBase58(),
             contentCount: profileAccount.contentCount,
@@ -56,7 +56,7 @@ export default function CreatorCenterPage() {
         }
 
         // 获取我的内容列表
-        const allContents = await (program.account as any).Content.all();
+        const allContents = await (program.account as any).content.all();
         const myContentsList = allContents
           .filter((c: any) => c.account.creator.toBase58() === publicKey.toBase58())
           .map((c: any) => ({
