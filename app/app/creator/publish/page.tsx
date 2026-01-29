@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { usePublish } from "@/hooks/usePublish";
 import { WalletButton } from "@/components/wallet/WalletButton";
+import { SuccessModal } from "@/components/ui/SuccessModal";
 import { MAX_TITLE_LENGTH, MAX_DESCRIPTION_LENGTH } from "@/lib/utils/constants";
 
 export default function PublishPage() {
@@ -13,6 +14,8 @@ export default function PublishPage() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [error, setError] = useState("");
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [publishedContentId, setPublishedContentId] = useState<number | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,9 +41,8 @@ export default function PublishPage() {
 
     try {
       const result = await publishContent(title, description);
-      alert("发布成功！");
-      // 跳转到内容详情页
-      window.location.href = `/content/${result.contentId}`;
+      setPublishedContentId(result.contentId);
+      setShowSuccessModal(true);
     } catch (err: any) {
       setError(err.message);
     }
@@ -63,8 +65,25 @@ export default function PublishPage() {
     );
   }
 
+  const handleSuccessClose = () => {
+    setShowSuccessModal(false);
+    // 跳转到内容详情页
+    if (publishedContentId !== null) {
+      window.location.href = `/content/${publishedContentId}`;
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto">
+      {/* 成功对话框 */}
+      <SuccessModal
+        isOpen={showSuccessModal}
+        onClose={handleSuccessClose}
+        title="发布成功！"
+        message="你的作品已成功发布到链上，现在可以开始获得支持者和收益了！"
+        icon="🎉"
+      />
+
       {/* Header */}
       <div className="mb-8 text-center">
         <div className="inline-block mb-4">

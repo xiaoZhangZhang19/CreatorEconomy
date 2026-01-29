@@ -5,6 +5,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { useContent } from "@/hooks/useContent";
 import { useTip } from "@/hooks/useTip";
 import { WalletButton } from "@/components/wallet/WalletButton";
+import { SuccessModal, ErrorModal } from "@/components/ui";
 import {
   formatSOL,
   formatTimestamp,
@@ -24,18 +25,26 @@ export default function ContentDetailPage({
 
   const [showTipDialog, setShowTipDialog] = useState(false);
   const [tipAmount, setTipAmount] = useState("0.01");
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleTip = async () => {
     if (!content || !publicKey) return;
 
     try {
       await tipContent(content.contentId, content.creator, parseFloat(tipAmount));
-      alert("打赏成功！");
       setShowTipDialog(false);
-      window.location.reload();
+      setShowSuccessModal(true);
     } catch (err: any) {
-      alert("打赏失败: " + err.message);
+      setErrorMessage(err.message);
+      setShowErrorModal(true);
     }
+  };
+
+  const handleSuccessClose = () => {
+    setShowSuccessModal(false);
+    window.location.reload();
   };
 
   if (loading) {
@@ -76,6 +85,24 @@ export default function ContentDetailPage({
 
   return (
     <div className="max-w-5xl mx-auto space-y-8">
+      {/* 成功对话框 */}
+      <SuccessModal
+        isOpen={showSuccessModal}
+        onClose={handleSuccessClose}
+        title="打赏成功！"
+        message="你的打赏已成功发送给创作者，感谢你对优质内容的支持！"
+        icon="🎉"
+      />
+
+      {/* 错误对话框 */}
+      <ErrorModal
+        isOpen={showErrorModal}
+        onClose={() => setShowErrorModal(false)}
+        title="打赏失败"
+        message={errorMessage}
+        icon="😕"
+      />
+
       {/* Back Button & Wallet */}
       <div className="flex justify-between items-center">
         <a 
