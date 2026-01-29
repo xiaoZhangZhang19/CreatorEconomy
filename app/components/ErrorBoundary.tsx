@@ -23,9 +23,13 @@ export class ErrorBoundary extends Component<Props, State> {
     // 检查是否是可忽略的错误
     const ignorablePatterns = [
       "tronlinkParams",
+      "tronLink",
+      "tron",
       "MetaMask",
       "_bn",
       "proxy",
+      "trap returned falsish",
+      "trap returned",
       "Loading chunk",
       "ChunkLoadError",
       "User rejected",
@@ -52,9 +56,13 @@ export class ErrorBoundary extends Component<Props, State> {
     // 忽略钱包相关的已知错误和块加载错误
     const ignorablePatterns = [
       "tronlinkParams",
+      "tronLink",
+      "tron",
       "MetaMask",
       "_bn",
       "proxy",
+      "trap returned falsish",
+      "trap returned",
       "Loading chunk",
       "ChunkLoadError",
       "User rejected",

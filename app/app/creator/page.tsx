@@ -84,12 +84,15 @@ export default function CreatorCenterPage() {
   if (!publicKey) {
     return (
       <div className="max-w-4xl mx-auto">
-        <div className="bg-white rounded-lg shadow-lg p-8 text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+        <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-3xl shadow-2xl p-12 text-center border-2 border-purple-200">
+          <span className="text-7xl mb-6 block">👨‍💼</span>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
             创作者中心
           </h2>
-          <p className="text-gray-600 mb-6">请先连接钱包</p>
-          <WalletButton />
+          <p className="text-gray-600 text-lg mb-8">连接钱包以访问你的创作者中心</p>
+          <div className="flex justify-center">
+            <WalletButton />
+          </div>
         </div>
       </div>
     );
@@ -97,115 +100,188 @@ export default function CreatorCenterPage() {
 
   if (loading) {
     return (
-      <div className="text-center py-12">
-        <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-purple-500 border-t-transparent"></div>
-        <p className="mt-4 text-gray-600">加载中...</p>
+      <div className="text-center py-20">
+        <div className="inline-block animate-spin rounded-full h-16 w-16 border-4 border-purple-500 border-t-transparent"></div>
+        <p className="mt-6 text-gray-600 text-lg font-medium">加载数据中...</p>
       </div>
     );
   }
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
-      <div className="flex justify-between items-center">
-        <div>
-          <h2 className="text-3xl font-bold text-gray-900">创作者中心</h2>
-          <p className="mt-2 text-gray-600">
-            管理你的内容和收益
-          </p>
-        </div>
-        <div className="flex items-center space-x-4">
+    <div className="max-w-7xl mx-auto space-y-8">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 rounded-3xl shadow-2xl p-8 md:p-12">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+          <div>
+            <div className="flex items-center space-x-3 mb-3">
+              <span className="text-5xl">👨‍💼</span>
+              <h2 className="text-4xl font-extrabold text-white">创作者中心</h2>
+            </div>
+            <p className="text-xl text-purple-100">
+              管理你的内容和收益
+            </p>
+            <p className="text-sm text-purple-200 mt-2 font-mono">
+              {formatAddress(publicKey.toBase58())}
+            </p>
+          </div>
           <a
             href="/creator/publish"
-            className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors"
+            className="inline-flex items-center px-8 py-4 bg-white text-purple-600 font-bold rounded-xl hover:shadow-xl hover:scale-105 transition-all"
           >
-            + 发布新内容
+            <span className="mr-2">✨</span>
+            发布新内容
           </a>
-          <WalletButton />
         </div>
       </div>
 
+      {/* Error Message */}
       {error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-          <p className="text-red-800">加载失败: {error}</p>
+        <div className="bg-gradient-to-r from-red-50 to-red-100 border-2 border-red-300 rounded-2xl p-6 flex items-start space-x-4">
+          <span className="text-3xl">⚠️</span>
+          <div>
+            <h4 className="font-bold text-red-800 mb-1">加载失败</h4>
+            <p className="text-red-700">{error}</p>
+          </div>
         </div>
       )}
 
-      {/* 统计卡片 */}
+      {/* Stats Cards */}
       {profile ? (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white rounded-lg shadow p-6">
-            <h3 className="text-sm text-gray-500 mb-2">累计收益</h3>
-            <p className="text-3xl font-bold text-purple-600">
-              {formatSOL(profile.totalEarnings)} SOL
-            </p>
+          <div className="bg-white rounded-2xl shadow-xl p-8 border-2 border-purple-100 hover:border-purple-300 transition-all">
+            <div className="flex items-center space-x-4 mb-4">
+              <div className="p-4 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-2xl">
+                <span className="text-4xl">💰</span>
+              </div>
+              <div>
+                <h3 className="text-sm text-gray-500 font-medium">累计收益</h3>
+                <p className="text-3xl font-bold text-purple-600">
+                  {formatSOL(profile.totalEarnings)}
+                </p>
+                <p className="text-sm text-gray-500">SOL</p>
+              </div>
+            </div>
           </div>
-          <div className="bg-white rounded-lg shadow p-6">
-            <h3 className="text-sm text-gray-500 mb-2">发布内容数</h3>
-            <p className="text-3xl font-bold text-gray-800">
-              {profile.contentCount}
-            </p>
+
+          <div className="bg-white rounded-2xl shadow-xl p-8 border-2 border-indigo-100 hover:border-indigo-300 transition-all">
+            <div className="flex items-center space-x-4 mb-4">
+              <div className="p-4 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-2xl">
+                <span className="text-4xl">📝</span>
+              </div>
+              <div>
+                <h3 className="text-sm text-gray-500 font-medium">发布内容</h3>
+                <p className="text-3xl font-bold text-indigo-600">
+                  {profile.contentCount}
+                </p>
+                <p className="text-sm text-gray-500">篇</p>
+              </div>
+            </div>
           </div>
-          <div className="bg-white rounded-lg shadow p-6">
-            <h3 className="text-sm text-gray-500 mb-2">注册时间</h3>
-            <p className="text-lg text-gray-800">
-              {formatTimestamp(profile.createdAt)}
-            </p>
+
+          <div className="bg-white rounded-2xl shadow-xl p-8 border-2 border-green-100 hover:border-green-300 transition-all">
+            <div className="flex items-center space-x-4 mb-4">
+              <div className="p-4 bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl">
+                <span className="text-4xl">⏰</span>
+              </div>
+              <div>
+                <h3 className="text-sm text-gray-500 font-medium">注册时间</h3>
+                <p className="text-lg font-bold text-green-600">
+                  {formatTimestamp(profile.createdAt)}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       ) : (
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-          <p className="text-yellow-800">
-            你还没有创作者资料。发布第一条内容时会自动创建。
-          </p>
+        <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-300 rounded-2xl p-8">
+          <div className="flex items-start space-x-4">
+            <span className="text-5xl">💡</span>
+            <div>
+              <h4 className="text-xl font-bold text-yellow-900 mb-2">
+                开始你的创作之旅
+              </h4>
+              <p className="text-yellow-800 mb-4">
+                你还没有创作者资料。发布第一条内容时会自动创建。
+              </p>
+              <a
+                href="/creator/publish"
+                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-bold rounded-xl hover:shadow-xl hover:scale-105 transition-all"
+              >
+                <span className="mr-2">✨</span>
+                发布第一条内容
+              </a>
+            </div>
+          </div>
         </div>
       )}
 
-      {/* 我的内容列表 */}
-      <div className="bg-white rounded-lg shadow">
-        <div className="px-6 py-4 border-b">
-          <h3 className="text-xl font-semibold text-gray-900">我的内容</h3>
+      {/* Content List */}
+      <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
+        <div className="h-2 bg-gradient-to-r from-purple-500 via-indigo-500 to-purple-600"></div>
+        
+        <div className="px-8 py-6 border-b-2 border-gray-100">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <span className="text-3xl">📚</span>
+              <h3 className="text-2xl font-bold text-gray-900">我的内容</h3>
+            </div>
+            {myContents.length > 0 && (
+              <span className="px-4 py-2 bg-purple-100 text-purple-700 font-bold rounded-full">
+                {myContents.length} 篇
+              </span>
+            )}
+          </div>
         </div>
 
         {myContents.length === 0 ? (
-          <div className="p-12 text-center">
-            <p className="text-gray-500 text-lg mb-4">还没有发布内容</p>
+          <div className="p-16 text-center">
+            <span className="text-7xl mb-6 block">📝</span>
+            <p className="text-gray-600 text-xl font-medium mb-2">还没有发布内容</p>
+            <p className="text-gray-500 mb-8">开始创作，分享你的作品吧！</p>
             <a
               href="/creator/publish"
-              className="inline-block bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors"
+              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl hover:shadow-xl hover:scale-105 transition-all"
             >
+              <span className="mr-2">✨</span>
               发布第一条内容
             </a>
           </div>
         ) : (
-          <div className="divide-y">
+          <div className="divide-y-2 divide-gray-100">
             {myContents.map((content) => (
               <a
                 key={content.contentId}
                 href={`/content/${content.contentId}`}
-                className="block px-6 py-4 hover:bg-gray-50 transition-colors"
+                className="block px-8 py-6 hover:bg-gradient-to-r hover:from-purple-50 hover:to-indigo-50 transition-all group"
               >
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between gap-6">
                   <div className="flex-1">
-                    <h4 className="text-lg font-semibold text-gray-900 mb-1">
+                    <h4 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">
                       {content.title}
                     </h4>
-                    <p className="text-sm text-gray-500">
-                      发布于 {formatTimestamp(content.createdAt)}
-                    </p>
+                    <div className="flex items-center space-x-3 text-sm text-gray-500">
+                      <span className="flex items-center">
+                        <span className="mr-1">📅</span>
+                        {formatTimestamp(content.createdAt)}
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex items-center space-x-6 text-sm">
-                    <div className="text-center">
-                      <p className="text-xl font-bold text-purple-600">
+                  <div className="flex items-center gap-8">
+                    <div className="text-center bg-purple-50 rounded-xl px-6 py-4 min-w-[120px]">
+                      <p className="text-2xl font-bold text-purple-600">
                         {formatSOL(content.totalTips)}
                       </p>
-                      <p className="text-gray-500">SOL</p>
+                      <p className="text-sm text-gray-600 mt-1">累计 SOL</p>
                     </div>
-                    <div className="text-center">
-                      <p className="text-xl font-bold text-gray-800">
+                    <div className="text-center bg-indigo-50 rounded-xl px-6 py-4 min-w-[120px]">
+                      <p className="text-2xl font-bold text-indigo-600">
                         {content.tipCount}
                       </p>
-                      <p className="text-gray-500">打赏次数</p>
+                      <p className="text-sm text-gray-600 mt-1">打赏次数</p>
                     </div>
+                    <span className="text-purple-600 group-hover:translate-x-2 transition-transform text-2xl">
+                      →
+                    </span>
                   </div>
                 </div>
               </a>
