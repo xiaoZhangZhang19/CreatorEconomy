@@ -5,7 +5,6 @@
 
 import idlData from "../idl/creator_economy.json";
 
-// 将 JSON 转换为 Idl 类型（使用 as any 避免 Vercel 构建时的类型问题）
 export const IDL = idlData as any;
 
 // 程序 ID（从 IDL 中读取）

@@ -34,8 +34,8 @@ export const WalletProvider: FC<{ children: ReactNode }> = ({ children }) => {
       if (typeof window === 'undefined') return [];
       
       try {
+        // 只返回我们明确支持的钱包
         return [
-          // 主流 Solana 钱包
           new PhantomWalletAdapter(),
           new SolflareWalletAdapter(),
         ];
@@ -44,7 +44,7 @@ export const WalletProvider: FC<{ children: ReactNode }> = ({ children }) => {
         return [];
       }
     },
-    [network]
+    []
   );
 
   return (
@@ -54,7 +54,10 @@ export const WalletProvider: FC<{ children: ReactNode }> = ({ children }) => {
         autoConnect={true}
         onError={(error) => {
           // 静默处理钱包相关错误，避免影响用户体验
-          console.debug('钱包错误（已忽略）:', error);
+          const errorMsg = error?.message || String(error);
+          if (!errorMsg.includes('User rejected') && !errorMsg.includes('User cancelled')) {
+            console.debug('钱包错误（已忽略）:', error);
+          }
         }}
       >
         <WalletModalProvider>

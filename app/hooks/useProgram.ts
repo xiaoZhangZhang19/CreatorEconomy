@@ -4,13 +4,13 @@ import { useMemo } from "react";
 import { AnchorProvider, Program } from "@coral-xyz/anchor";
 import { useAnchorWallet, useConnection } from "@solana/wallet-adapter-react";
 import { IDL } from "@/lib/anchor/idl";
+import type { CreatorEconomyProgram } from "@/lib/anchor/types";
 import { PublicKey } from "@solana/web3.js";
 
-// 从 IDL 中读取程序 ID
+// 程序 ID
 const PROGRAM_ID = new PublicKey("7E14Uz3c1CUoXaxkiGyP2WeqXDzxrMRgFu9pAVrrxLkx");
 
-// 不使用强类型，避免 Vercel 构建时的类型问题
-export function useProgram() {
+export function useProgram(): CreatorEconomyProgram | null {
   const { connection } = useConnection();
   const wallet = useAnchorWallet();
 
@@ -21,7 +21,9 @@ export function useProgram() {
       commitment: "confirmed",
     });
 
-    return new Program(IDL, provider);
+    // 使用 IDL 和 provider 创建 Program 实例
+    // 强制转换为 CreatorEconomyProgram (Program<any>) 以绕过类型检查
+    return new Program(IDL, provider) as CreatorEconomyProgram;
   }, [connection, wallet]);
 
   return program;
