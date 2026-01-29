@@ -33,7 +33,7 @@ export function usePublish() {
       } catch {
         // 资料不存在，需要创建
         console.log("创建创作者资料...");
-        await program.methods
+        await (program.methods as any)
           .createCreatorProfile()
           .accounts({
             creator: publicKey,
@@ -78,7 +78,7 @@ export function usePublish() {
       console.log("- 描述长度:", description.length);
 
       // 调用发布指令
-      const tx = await program.methods
+      const tx = await (program.methods as any)
         .publishContent(title, description)
         .accounts({
           creator: publicKey,

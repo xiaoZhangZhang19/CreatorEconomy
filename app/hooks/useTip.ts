@@ -57,7 +57,7 @@ export function useTip() {
       console.log("- 早期支持者数量:", earlySupporters.length);
 
       // 调用打赏指令
-      const tx = await program.methods
+      const tx = await (program.methods as any)
         .tipContent(amount)
         .accountsStrict({
           tipper: publicKey,
