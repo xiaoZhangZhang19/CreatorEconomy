@@ -2,13 +2,8 @@
  * Anchor 程序类型定义
  */
 
-import type { Program, IdlAccounts } from "@coral-xyz/anchor";
-import type { CreatorEconomy } from "./idl";
+import type { Program } from "@coral-xyz/anchor";
 
-// 导出程序类型
-export type CreatorEconomyProgram = Program<CreatorEconomy>;
-
-// 导出账户类型
-export type Platform = IdlAccounts<CreatorEconomy>["platform"];
-export type Content = IdlAccounts<CreatorEconomy>["content"];
-export type CreatorProfile = IdlAccounts<CreatorEconomy>["creatorProfile"];
+// 导出程序类型 - 使用 Program 不带泛型，避免类型约束问题
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type CreatorEconomyProgram = Program;
