@@ -23,4 +23,10 @@ pub enum CreatorEconomyError {
 
     #[msg("无效的费率配置")]
     InvalidFeeRate,
+
+    #[msg("无效的支持者账户")]
+    InvalidSupporterAccount,
+
+    #[msg("账户不可写")]
+    AccountNotWritable,
 }

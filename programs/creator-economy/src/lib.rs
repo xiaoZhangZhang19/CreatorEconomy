@@ -36,7 +36,7 @@ pub mod creator_economy {
             CreatorEconomyError::InvalidFeeRate
         );
 
-        let platform = &mut ctx.accounts.platform;
+        let platform: &mut Account<'_, Platform> = &mut ctx.accounts.platform;
         platform.authority = ctx.accounts.authority.key();
         platform.total_content_count = 0;
         platform.early_supporter_limit = early_supporter_limit;
@@ -219,14 +219,24 @@ pub mod creator_economy {
                 per_supporter
             );
 
-            // 注：实际实现中，需要通过 remaining_accounts 传入每个支持者的收益账户
-            // 这里简化处理，假设在前端已经正确设置了 remaining_accounts
-            // 每个 remaining_account 应该是对应支持者的 SupporterEarnings PDA
+            // 注：通过 remaining_accounts 传入每个支持者的钱包账户
+            // 必须验证传入的账户是否与 early_supporters 列表中的地址一一对应
+            // 这样可以防止恶意用户传入错误的账户地址窃取资金
 
             for (index, supporter_account) in ctx.remaining_accounts.iter().enumerate() {
                 if index < content.early_supporters.len() {
-                    // 验证账户是否可写
-                    require!(supporter_account.is_writable, CreatorEconomyError::ArithmeticOverflow);
+                    // 验证1：传入的账户地址必须与早期支持者列表中的地址匹配
+                    let expected_supporter = content.early_supporters[index];
+                    require!(
+                        supporter_account.key() == expected_supporter,
+                        CreatorEconomyError::InvalidSupporterAccount
+                    );
+
+                    // 验证2：账户必须可写（否则无法接收转账）
+                    require!(
+                        supporter_account.is_writable, 
+                        CreatorEconomyError::AccountNotWritable
+                    );
 
                     // 执行转账到早期支持者
                     transfer(
@@ -239,6 +249,8 @@ pub mod creator_economy {
                         ),
                         per_supporter,
                     )?;
+
+                    msg!("已转账 {} lamports 给支持者 {}", per_supporter, expected_supporter);
                 }
             }
         }
