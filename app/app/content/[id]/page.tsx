@@ -47,7 +47,8 @@ export default function ContentDetailPage({
     window.location.reload();
   };
 
-  if (loading) {
+  // 加载中或初始状态
+  if (loading || (!content && !error)) {
     return (
       <div className="text-center py-20">
         <div className="inline-block relative">
@@ -59,7 +60,8 @@ export default function ContentDetailPage({
     );
   }
 
-  if (error || !content) {
+  // 只在明确有错误或加载完成但没有内容时显示错误页面
+  if (error || (!loading && !content)) {
     return (
       <div className="max-w-4xl mx-auto relative z-10">
         <div className="glass-card rounded-2xl p-8 shadow-xl relative overflow-hidden"
