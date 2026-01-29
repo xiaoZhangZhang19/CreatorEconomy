@@ -442,7 +442,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   IDL: () => (/* binding */ IDL),\n/* harmony export */   PROGRAM_ID_FROM_IDL: () => (/* binding */ PROGRAM_ID_FROM_IDL)\n/* harmony export */ });\n/* harmony import */ var _target_idl_creator_economy_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../target/idl/creator_economy.json */ \"(ssr)/../target/idl/creator_economy.json\");\n/**\n * Anchor IDL 类型定义\n * 这个文件从生成的 creator_economy.json 导入 IDL\n */ \n// 导出 IDL（使用 as Idl 确保类型正确）\nconst IDL = _target_idl_creator_economy_json__WEBPACK_IMPORTED_MODULE_0__;\n// 程序 ID（从 IDL 中读取）\nconst PROGRAM_ID_FROM_IDL = _target_idl_creator_economy_json__WEBPACK_IMPORTED_MODULE_0__.address;\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHNzcikvLi9saWIvYW5jaG9yL2lkbC50cyIsIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQTs7O0NBR0MsR0FFOEQ7QUFHL0QsMkJBQTJCO0FBQ3BCLE1BQU1DLE1BQU1ELDZEQUFPQSxDQUFRO0FBS2xDLG1CQUFtQjtBQUNaLE1BQU1FLHNCQUFzQkYscUVBQWUsQ0FBQyIsInNvdXJjZXMiOlsiL1VzZXJzL2tpcm8vRG9jdW1lbnRzL2l0ZW0vY2UvYXBwL2xpYi9hbmNob3IvaWRsLnRzIl0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQW5jaG9yIElETCDnsbvlnovlrprkuYlcbiAqIOi/meS4quaWh+S7tuS7jueUn+aIkOeahCBjcmVhdG9yX2Vjb25vbXkuanNvbiDlr7zlhaUgSURMXG4gKi9cblxuaW1wb3J0IGlkbEpzb24gZnJvbSBcIi4uLy4uLy4uL3RhcmdldC9pZGwvY3JlYXRvcl9lY29ub215Lmpzb25cIjtcbmltcG9ydCB7IElkbCB9IGZyb20gXCJAY29yYWwteHl6L2FuY2hvclwiO1xuXG4vLyDlr7zlh7ogSURM77yI5L2/55SoIGFzIElkbCDnoa7kv53nsbvlnovmraPnoa7vvIlcbmV4cG9ydCBjb25zdCBJREwgPSBpZGxKc29uIGFzIElkbDtcblxuLy8g5a+85Ye657G75Z6L77yI5LuOIElETCDmjqjmlq3vvIlcbmV4cG9ydCB0eXBlIENyZWF0b3JFY29ub215ID0gdHlwZW9mIGlkbEpzb247XG5cbi8vIOeoi+W6jyBJRO+8iOS7jiBJREwg5Lit6K+75Y+W77yJXG5leHBvcnQgY29uc3QgUFJPR1JBTV9JRF9GUk9NX0lETCA9IGlkbEpzb24uYWRkcmVzcztcbiJdLCJuYW1lcyI6WyJpZGxKc29uIiwiSURMIiwiUFJPR1JBTV9JRF9GUk9NX0lETCIsImFkZHJlc3MiXSwiaWdub3JlTGlzdCI6W10sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///(ssr)/./lib/anchor/idl.ts\n");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   IDL: () => (/* binding */ IDL),\n/* harmony export */   PROGRAM_ID_FROM_IDL: () => (/* binding */ PROGRAM_ID_FROM_IDL)\n/* harmony export */ });\n/* harmony import */ var _idl_creator_economy_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../idl/creator_economy.json */ \"(ssr)/./lib/idl/creator_economy.json\");\n/**\n * Anchor IDL 类型定义\n * 这个文件从生成的 creator_economy.json 导入 IDL\n */ \n// 导出 IDL（使用 as Idl 确保类型正确）\nconst IDL = _idl_creator_economy_json__WEBPACK_IMPORTED_MODULE_0__;\n// 程序 ID（从 IDL 中读取）\nconst PROGRAM_ID_FROM_IDL = _idl_creator_economy_json__WEBPACK_IMPORTED_MODULE_0__.address;\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHNzcikvLi9saWIvYW5jaG9yL2lkbC50cyIsIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQTs7O0NBR0MsR0FFaUQ7QUFHbEQsMkJBQTJCO0FBQ3BCLE1BQU1DLE1BQU1ELHNEQUFPQSxDQUFRO0FBS2xDLG1CQUFtQjtBQUNaLE1BQU1FLHNCQUFzQkYsOERBQWUsQ0FBQyIsInNvdXJjZXMiOlsiL1VzZXJzL2tpcm8vRG9jdW1lbnRzL2l0ZW0vY2UvYXBwL2xpYi9hbmNob3IvaWRsLnRzIl0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQW5jaG9yIElETCDnsbvlnovlrprkuYlcbiAqIOi/meS4quaWh+S7tuS7jueUn+aIkOeahCBjcmVhdG9yX2Vjb25vbXkuanNvbiDlr7zlhaUgSURMXG4gKi9cblxuaW1wb3J0IGlkbEpzb24gZnJvbSBcIi4uL2lkbC9jcmVhdG9yX2Vjb25vbXkuanNvblwiO1xuaW1wb3J0IHsgSWRsIH0gZnJvbSBcIkBjb3JhbC14eXovYW5jaG9yXCI7XG5cbi8vIOWvvOWHuiBJREzvvIjkvb/nlKggYXMgSWRsIOehruS/neexu+Wei+ato+ehru+8iVxuZXhwb3J0IGNvbnN0IElETCA9IGlkbEpzb24gYXMgSWRsO1xuXG4vLyDlr7zlh7rnsbvlnovvvIjku44gSURMIOaOqOaWre+8iVxuZXhwb3J0IHR5cGUgQ3JlYXRvckVjb25vbXkgPSB0eXBlb2YgaWRsSnNvbjtcblxuLy8g56iL5bqPIElE77yI5LuOIElETCDkuK3or7vlj5bvvIlcbmV4cG9ydCBjb25zdCBQUk9HUkFNX0lEX0ZST01fSURMID0gaWRsSnNvbi5hZGRyZXNzO1xuIl0sIm5hbWVzIjpbImlkbEpzb24iLCJJREwiLCJQUk9HUkFNX0lEX0ZST01fSURMIiwiYWRkcmVzcyJdLCJpZ25vcmVMaXN0IjpbXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///(ssr)/./lib/anchor/idl.ts\n");
 
 /***/ }),
 
@@ -612,10 +612,10 @@ function() { throw new Error("Attempted to call WalletProvider() from the server
 
 /***/ }),
 
-/***/ "(ssr)/../target/idl/creator_economy.json":
-/*!******************************************!*\
-  !*** ../target/idl/creator_economy.json ***!
-  \******************************************/
+/***/ "(ssr)/./lib/idl/creator_economy.json":
+/*!**************************************!*\
+  !*** ./lib/idl/creator_economy.json ***!
+  \**************************************/
 /***/ ((module) => {
 
 "use strict";

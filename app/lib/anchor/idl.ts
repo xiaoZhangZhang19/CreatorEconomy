@@ -3,7 +3,7 @@
  * 这个文件从生成的 creator_economy.json 导入 IDL
  */
 
-import idlJson from "../../../target/idl/creator_economy.json";
+import idlJson from "../idl/creator_economy.json";
 import { Idl } from "@coral-xyz/anchor";
 
 // 导出 IDL（使用 as Idl 确保类型正确）
