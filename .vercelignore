@@ -1,0 +1,23 @@
+# Rust and Anchor files
+target/
+programs/
+tests/
+migrations/
+scripts/
+
+# Anchor configuration
+Anchor.toml
+Cargo.toml
+Cargo.lock
+
+# Node modules at root
+node_modules/
+
+# Documentation
+*.md
+DEPLOYMENT_GUIDE.md
+
+# IDL files (already copied to app)
+*.json
+!app/**/*.json
+
