@@ -44,7 +44,7 @@ export default function CreatorCenterPage() {
         // 获取创作者资料
         const [profilePDA] = deriveCreatorProfilePDA(publicKey);
         try {
-          const profileAccount = await program.account.creatorProfile.fetch(profilePDA);
+          const profileAccount = await (program.account as any).CreatorProfile.fetch(profilePDA);
           setProfile({
             creator: profileAccount.creator.toBase58(),
             contentCount: profileAccount.contentCount,
@@ -56,17 +56,17 @@ export default function CreatorCenterPage() {
         }
 
         // 获取我的内容列表
-        const allContents = await program.account.content.all();
+        const allContents = await (program.account as any).Content.all();
         const myContentsList = allContents
-          .filter((c) => c.account.creator.toBase58() === publicKey.toBase58())
-          .map((c) => ({
+          .filter((c: any) => c.account.creator.toBase58() === publicKey.toBase58())
+          .map((c: any) => ({
             contentId: c.account.contentId.toNumber(),
             title: c.account.title,
             totalTips: c.account.totalTips.toNumber(),
             tipCount: c.account.tipCount,
             createdAt: c.account.createdAt.toNumber(),
           }))
-          .sort((a, b) => b.createdAt - a.createdAt);
+          .sort((a: any, b: any) => b.createdAt - a.createdAt);
 
         setMyContents(myContentsList);
         setError(null);

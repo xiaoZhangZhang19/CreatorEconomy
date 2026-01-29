@@ -34,7 +34,7 @@ export function useContent(contentId: number) {
       try {
         setLoading(true);
         const [contentPDA] = deriveContentPDA(contentId);
-        const contentAccount = await program.account.content.fetch(contentPDA);
+        const contentAccount = await (program.account as any).Content.fetch(contentPDA);
 
         // 安全地转换 BN 类型
         const safeToNumber = (bn: any) => {
@@ -98,22 +98,22 @@ export function useAllContents() {
     const fetchAllContents = async () => {
       try {
         setLoading(true);
-        const contentAccounts = await program.account.content.all();
+        const contentAccounts = await (program.account as any).Content.all();
 
         const contentsData = contentAccounts
-          .map((account) => ({
+          .map((account: any) => ({
             contentId: account.account.contentId.toNumber(),
             creator: account.account.creator.toBase58(),
             title: account.account.title,
             description: account.account.description,
             totalTips: account.account.totalTips.toNumber(),
             tipCount: account.account.tipCount,
-            earlySupporters: account.account.earlySupporters.map((pk) =>
+            earlySupporters: account.account.earlySupporters.map((pk: any) =>
               pk.toBase58()
             ),
             createdAt: account.account.createdAt.toNumber(),
           }))
-          .sort((a, b) => b.createdAt - a.createdAt); // 按时间倒序
+          .sort((a: any, b: any) => b.createdAt - a.createdAt); // 按时间倒序
 
         setContents(contentsData);
         setError(null);
